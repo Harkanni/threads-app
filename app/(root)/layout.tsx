@@ -1,5 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs"
-import '../global.css'
+import '../globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Topbar from "@/components/shared/Topbar"
