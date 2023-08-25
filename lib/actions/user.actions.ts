@@ -40,3 +40,18 @@ export async function updateUser({userId, username, name, bio, image, path}: Par
       throw new Error(`Failed to create/update user: ${error.message}`);
    }
 }
+
+export const fetchUser = async (userId: string) => {
+   try {
+      await connectToDB();
+
+      return await User
+         .findOne({id: userId})
+         // .populate({
+         //    path: 'communties',
+         //    model: 'communty'
+         // })
+   } catch (error: any) {
+      throw new Error(`Failed to fetch user: ${error.message}`);
+   }
+}

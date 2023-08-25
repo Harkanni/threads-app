@@ -43,6 +43,17 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
    const router = useRouter()
    const pathName = usePathname()
 
+   
+   const form = useForm({
+      resolver: zodResolver(UserValidation),
+      defaultValues: {
+         profile_photo: user?.image || '',
+         name: user?.name || '',
+         username: user?.username || '',
+         bio: user?.bio || '',
+      }
+   })
+
    const handleImage = (e: ChangeEvent<HTMLInputElement>, fieldChange: (value: string) => void) => {
       e.preventDefault();
 
@@ -94,16 +105,6 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       }
    }
 
-
-   const form = useForm({
-      resolver: zodResolver(UserValidation),
-      defaultValues: {
-         profile_photo: user?.image || '',
-         name: user?.name || '',
-         username: user?.username || '',
-         bio: user?.bio || '',
-      }
-   })
    return (
       <Form {...form}>
          <form onSubmit={form.handleSubmit(onSubmit)}
@@ -141,6 +142,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                            onChange={(e) => handleImage(e, field.onChange)}
                         />
                      </FormControl>
+                     <FormMessage />
                   </FormItem>
                )}
             />
@@ -160,6 +162,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                            {...field}
                         />
                      </FormControl>
+                     <FormMessage />
                   </FormItem>
                )}
             />
@@ -179,6 +182,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                            {...field}
                         />
                      </FormControl>
+                     <FormMessage />
                   </FormItem>
                )}
             />
@@ -197,6 +201,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                            {...field}
                         />
                      </FormControl>
+                     <FormMessage />
                   </FormItem>
                )}
             />
