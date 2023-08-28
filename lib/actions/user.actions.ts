@@ -16,7 +16,7 @@ interface Params {
 
 
 export async function updateUser({userId, username, name, bio, image, path}: Params): Promise<void> {
-   await connectToDB();
+   connectToDB();
 
    try {
       const dbresult = await User.findOneAndUpdate(
@@ -43,7 +43,7 @@ export async function updateUser({userId, username, name, bio, image, path}: Par
 
 export const fetchUser = async (userId: string) => {
    try {
-      await connectToDB();
+      connectToDB();
 
       return await User
          .findOne({id: userId})
