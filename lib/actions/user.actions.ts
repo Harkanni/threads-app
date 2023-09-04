@@ -18,9 +18,11 @@ interface Params {
 
 
 export async function updateUser({userId, username, name, bio, image, path}: Params): Promise<void> {
-   connectToDB();
+   
 
    try {
+      connectToDB();
+      
       const dbresult = await User.findOneAndUpdate(
          { id: userId },
          { 
@@ -127,5 +129,32 @@ export const fetchUsers = async ({ userId, searchString="", pageNumber=1, pageSi
       return { users, isNext };
    } catch (error: any) {
       throw new Error(`Failed to fetch users: ${error.message}`);
+   }
+}
+
+export const getActivity = async (userId: string) => {
+   try {
+      connectToDB();
+
+      // find all threads created by the user
+      const userThreads = await Thread.find({ author: userId })
+
+      // collect all the child thread ids (replies) from the 'children' field
+      const childThreads = userThreads.reduce((acc, userThread) => {
+         return acc.concat(userThread.children)
+      }, []);
+
+      const replies = await Thread.find({
+         _id: { $in: childThreads },
+         author: { $ne: userId },
+      }).populate({
+         path: 'author',
+         model: User,
+         select: 'name image _id'
+      })
+
+      return replies
+   } catch (error: any) {
+      throw new Error(`Failed to fetch activity: ${error.message}`);
    }
 }
