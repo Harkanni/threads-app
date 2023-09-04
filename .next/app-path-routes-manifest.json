@@ -1,0 +1,15 @@
+{
+  "/icon.ico/route": "/icon.ico",
+  "/api/uploadthing/route": "/api/uploadthing",
+  "/(root)/page": "/",
+  "/(root)/activity/page": "/activity",
+  "/(root)/communities/page": "/communities",
+  "/(root)/create-thread/page": "/create-thread",
+  "/(root)/search/page": "/search",
+  "/(auth)/onboarding/page": "/onboarding",
+  "/api/webhook/clerk/route": "/api/webhook/clerk",
+  "/(auth)/sign-in/[[...sign-in]]/page": "/sign-in/[[...sign-in]]",
+  "/(root)/profile/[id]/page": "/profile/[id]",
+  "/(auth)/sign-up/[[...sign-up]]/page": "/sign-up/[[...sign-up]]",
+  "/(root)/thread/[id]/page": "/thread/[id]"
+}
