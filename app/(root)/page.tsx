@@ -11,7 +11,7 @@ export default async function Home() {
    if (!user) return null;
    
    const userInfo = await fetchUser(user.id);
-   console.log('THIS IS THE',userInfo)
+   // console.log('THIS IS THE',userInfo)
    if (!userInfo?.onboarded) redirect("/onboarding");
    
    const result = await fetchThreads(1, 20);
