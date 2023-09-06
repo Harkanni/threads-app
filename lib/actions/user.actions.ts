@@ -65,6 +65,10 @@ export async function fetchUserPost(userId: string) {
   try {
     connectToDB();
 
+    const sortBy: SortOrder = "desc"
+
+    const sortOptions = { createdAt: sortBy };
+
     // Find all threads authored by the user with the given userId
     const threads = await User.findOne({ id: userId }).populate({
       path: "threads",
@@ -78,14 +82,16 @@ export async function fetchUserPost(userId: string) {
         {
           path: "children",
           model: Thread,
+         //  select: "created_at", // Select the "created_at" field from the "
           populate: {
             path: "author",
             model: User,
-            select: "name image id", // Select the "name" and "_id" fields from the "User" model
+            select: "name image id created_at", // Select the "name" and "_id" fields from the "User" model
           },
         },
       ],
-    });
+    })
+    threads.threads.sort((a: any, b: any) => a.created_at < b.created_at)
     return threads;
   } catch (error) {
     console.error("Error fetching user threads:", error);

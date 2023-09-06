@@ -16,6 +16,7 @@ const ThreadsTab = async ({ currentUserId, accountId, accountType }: Props) => {
       result = await fetchCommunityPosts(accountId)
    } else {
       result = await fetchUserPost(accountId)
+      result.threads.sort((a: any, b: any) => a.created_at > b.created_at)
    }
    
 
@@ -37,6 +38,7 @@ const ThreadsTab = async ({ currentUserId, accountId, accountType }: Props) => {
                community={thread.community} // TODO:
                createdAt={thread.createdAt}
                comments={thread.children}
+               likes={thread.likes}
             />
          ))}
       </section>

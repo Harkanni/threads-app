@@ -1,6 +1,8 @@
 import { formatDateString } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import LikeButton from "../button/LikeButton";
+
 
 interface Props {
    id: string;
@@ -22,7 +24,8 @@ interface Props {
       author: {
          image: string;
       }
-   }[]
+   }[],
+   likes?: [],
    isComment?: boolean;
 }
 
@@ -35,11 +38,11 @@ const ThreadCard = ({ id,
    createdAt,
    comments,
    isComment,
+   likes,
 }: Props) => {
-   console.log("COMMUNITY: ", community)
+
    return (
       <article className={`flex w-full flex-col rounded-xl ${isComment ? 'px-0 xs:px-7' : 'bg-dark-2 p-7 '}`}>
-
          <div className="flex items-start justify-between">
             <div className="flex w-full flex-1 flex-row gap-4">
                <div className="flex flex-col items-center">
@@ -69,11 +72,12 @@ const ThreadCard = ({ id,
                   <div className={`${isComment && 'mb-10'} mt-5 flex flex-col gap-3`}>
                      <div className="flex gap-3.5">
                         <Link href={`/thread/${id}`}>
-                           <Image src="/assets/reply.svg" alt="reply" width={24} height={24} className="cursor-pointer object-contain" />
+                           <Image src="/assets/reply.svg" alt="reply" width={25} height={25} className="cursor-pointer object-contain" />
                         </Link>
-                        <Image src="/assets/heart-gray.svg" alt="heart" width={24} height={24} className="cursor-pointer object-contain" />
-                        <Image src="/assets/repost.svg" alt="repost" width={24} height={24} className="cursor-pointer object-contain" />
-                        <Image src="/assets/share.svg" alt="share" width={24} height={24} className="cursor-pointer object-contain" />
+                        <LikeButton userId={id} likes={likes} />
+                        {/* <Image src="/assets/heart-gray.svg" alt="heart" width={24} height={24} className="cursor-pointer object-contain" /> */}
+                        <Image src="/assets/repost.svg" alt="repost" width={25} height={25} className="cursor-pointer object-contain" />
+                        <Image src="/assets/share.svg" alt="share" width={25} height={25} className="cursor-pointer object-contain" />
                      </div>
 
                      {isComment && comments.length > 0 && (
@@ -89,6 +93,9 @@ const ThreadCard = ({ id,
             {/* TODO: SHOW COMMUNITY LOGO */}
 
          </div>
+         <p  className="text-subtle-medium text-gray-1">
+            {likes?.length ? `${likes.length} likes` : ''}           
+         </p>
          {!isComment && community && (
             <Link href={`/communities/${community.id}`} className="mt-5 flex items-center">
                <p className="text-subtle-medium text-gray-1">

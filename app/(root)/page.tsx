@@ -15,6 +15,8 @@ export default async function Home() {
    if (!userInfo?.onboarded) redirect("/onboarding");
    
    const result = await fetchThreads(1, 20);
+
+   // console.log("This is the result:         ",result)
    
 
 
@@ -38,6 +40,7 @@ export default async function Home() {
                         community={post.community}
                         createdAt={post.createdAt}
                         comments={post.children}
+                        likes={post.likes}
                      />
                   ))}
                </>
