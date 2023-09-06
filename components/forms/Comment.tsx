@@ -11,8 +11,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { CommentValidation } from "@/lib/validations/thread";
 import Image from "next/image";
 import { addCommentToThread } from "@/lib/actions/thread.actions";
-// import { createThread } from "@/lib/actions/thread.actions";
-// import { updateUser } from "@/lib/actions/user.actions";
 
 
 
@@ -25,8 +23,6 @@ interface Props {
 const Comment = ({ threadId, currentUserImg, currentUserId, }: Props) => {
    const router = useRouter()
    const pathName = usePathname()
-
-   // console.log(currentUserImg)
 
 
    const form = useForm({
@@ -43,9 +39,7 @@ const Comment = ({ threadId, currentUserImg, currentUserId, }: Props) => {
         commentText: values.thread,
         userId: JSON.parse(currentUserId),
         path: pathName
-
       });
-
       form.reset();
    };
 

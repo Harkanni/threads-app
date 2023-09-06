@@ -82,7 +82,6 @@ export async function fetchUserPost(userId: string) {
         {
           path: "children",
           model: Thread,
-         //  select: "created_at", // Select the "created_at" field from the "
           populate: {
             path: "author",
             model: User,
@@ -91,7 +90,7 @@ export async function fetchUserPost(userId: string) {
         },
       ],
     })
-    threads.threads.sort((a: any, b: any) => a.created_at < b.created_at)
+    
     return threads;
   } catch (error) {
     console.error("Error fetching user threads:", error);
